@@ -13,6 +13,13 @@
 #  updated_at :datetime         not null
 #
 class Book < ActiveRecord::Base
-  validates :title, :author, presence: true
-  validates :isbn, uniqueness: true, allow_blank: true
+  has_many :loans
+
+  validates :title, presence: true
+  validates :isbn, presence: true, uniqueness: true
+  validates :stock, numericality: { greater_than_or_equal_to: 0 }
+
+  def as_json(options = {})
+    super(only: [:id, :title, :isbn, :stock])
+  end
 end

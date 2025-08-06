@@ -21,4 +21,32 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_06_184501) do
     t.index ["deleted_at"], name: "index_books_on_deleted_at"
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
   end
+
+  create_table "borrowers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "id_card_number"
+    t.string "name"
+    t.string "email"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_borrowers_on_deleted_at"
+    t.index ["email"], name: "index_borrowers_on_email"
+    t.index ["id_card_number"], name: "index_borrowers_on_id_card_number"
+  end
+
+  create_table "loans", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "borrower_id"
+    t.datetime "due_date"
+    t.datetime "returned_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_loans_on_book_id"
+    t.index ["borrower_id"], name: "index_loans_on_borrower_id"
+    t.index ["deleted_at"], name: "index_loans_on_deleted_at"
+  end
+
+  add_foreign_key "loans", "books"
+  add_foreign_key "loans", "borrowers"
 end
