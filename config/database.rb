@@ -1,7 +1,0 @@
-ActiveRecord::Base.establish_connection(
-  adapter:  'mysql2',
-  host:     ENV['DB_HOST'],
-  database: ENV['DB_NAME'],
-  username: ENV['DB_USER'],
-  password: ENV['DB_PASSWORD']
-)

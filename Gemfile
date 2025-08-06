@@ -9,3 +9,8 @@ gem 'activerecord', '~> 7.0'
 gem 'mysql2'
 gem 'rake'
 gem 'dotenv'
+gem 'sinatra-activerecord'
+
+group :development do
+  gem 'annotate'
+end

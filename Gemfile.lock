@@ -19,6 +19,9 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     base64 (0.3.0)
     benchmark (0.4.1)
     bigdecimal (3.2.2)
@@ -55,6 +58,9 @@ GEM
       rack-protection (= 4.1.1)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
+    sinatra-activerecord (2.0.28)
+      activerecord (>= 4.1)
+      sinatra (>= 1.0)
     sinatra-contrib (4.1.1)
       multi_json (>= 0.0.2)
       mustermann (~> 3.0)
@@ -72,11 +78,13 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 7.0)
+  annotate
   dotenv
   mysql2
   puma
   rake
   sinatra
+  sinatra-activerecord
   sinatra-contrib
 
 RUBY VERSION
