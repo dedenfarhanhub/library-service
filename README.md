@@ -36,7 +36,7 @@ App/
 │   ├── borrower.rb
 │   └── loan.rb
 │
-└── main.rb (entrypoint Sinatra app)
+└── app.rb (entrypoint Sinatra app)
 ```
 > This clean separation improves **maintainability**, **testability**, and **scalability**.
 
