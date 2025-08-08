@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_06_184501) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_07_120316) do
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.string "isbn"
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_06_184501) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_books_on_deleted_at"
-    t.index ["isbn"], name: "index_books_on_isbn", unique: true
+    t.index ["isbn"], name: "index_books_on_isbn"
   end
 
   create_table "borrowers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

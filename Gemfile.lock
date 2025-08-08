@@ -1,13 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (7.2.2.1)
-      activesupport (= 7.2.2.1)
-    activerecord (7.2.2.1)
-      activemodel (= 7.2.2.1)
-      activesupport (= 7.2.2.1)
+    activemodel (7.2.2)
+      activesupport (= 7.2.2)
+    activerecord (7.2.2)
+      activemodel (= 7.2.2)
+      activesupport (= 7.2.2)
       timeout (>= 0.4.0)
-    activesupport (7.2.2.1)
+    activesupport (7.2.2)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -38,6 +38,8 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.6)
     nio4r (2.7.4)
+    paranoia (3.0.1)
+      activerecord (>= 6, < 8.1)
     puma (6.6.1)
       nio4r (~> 2.0)
     rack (3.2.0)
@@ -48,6 +50,8 @@ GEM
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
+    rackup (2.2.1)
+      rack (>= 3)
     rake (13.3.0)
     ruby2_keywords (0.0.5)
     securerandom (0.4.1)
@@ -77,11 +81,14 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  activerecord (~> 7.0)
+  activerecord (= 7.2.2)
+  activesupport (~> 7.0)
   annotate
   dotenv
   mysql2
+  paranoia (~> 3.0)
   puma
+  rackup (~> 2.2)
   rake
   sinatra
   sinatra-activerecord

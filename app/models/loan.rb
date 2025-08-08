@@ -14,10 +14,12 @@
 #  updated_at  :datetime         not null
 #
 class Loan < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :book
   belongs_to :borrower
 
-  validates :borrowed_at, :due_date, presence: true
+  validates :due_date, presence: true
 
   def returned?
     !!returned_at
@@ -28,7 +30,7 @@ class Loan < ActiveRecord::Base
   end
 
   def duration_limit?(due_date)
-    due_date.to_date - Date.today.to_date > ENV['MAX_LOAN_DURATION'].to_i
+    due_date.to_date - Date.today.to_date > ENV['MAX_LOAN_DURATION_DAYS'].to_i
   end
 
   def status
@@ -43,7 +45,6 @@ class Loan < ActiveRecord::Base
       id: id,
       book: book.as_json,
       borrower: borrower.as_json,
-      borrowed_at: borrowed_at,
       due_date: due_date,
       returned_at: returned_at,
       status: status
