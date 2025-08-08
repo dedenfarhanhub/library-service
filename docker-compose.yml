@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3309:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:
+      - .env
+
+  web:
+    build: .
+    command: ./.docker/wait-for-mysql.sh sh -c "bundle exec rake db:migrate && bundle exec puma -C puma.rb"
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+volumes:
+  db_data:
