@@ -13,8 +13,13 @@ RUN bundle install
 # Copy all project files
 COPY . .
 
+COPY .docker/entrypoint.sh /usr/bin/entrypoint.sh
+COPY .docker/wait-for-mysql.sh /usr/bin/wait-for-mysql.sh
+RUN chmod +x /usr/bin/entrypoint.sh /usr/bin/wait-for-mysql.sh
+
 # Expose port
 EXPOSE ${APP_PORT}
 
 # Run Puma via Entrypoint
-CMD ["bundle", "exec", "puma", "-C", "puma.rb"]
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+
