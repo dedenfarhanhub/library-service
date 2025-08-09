@@ -17,6 +17,14 @@ class App < Sinatra::Base
   end
 
   before do
+    if request.media_type == 'application/json'
+      request.body.rewind
+      body = request.body.read
+      params.merge!(JSON.parse(body)) unless body.empty?
+    end
+  end
+
+  before do
     content_type :json
   end
 
