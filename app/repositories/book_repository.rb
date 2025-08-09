@@ -26,6 +26,6 @@ class BookRepository
   end
 
   def self.find_by_isbn(isbn)
-    Book.where(isbn: isbn).first
+    Book.where(isbn: isbn, deleted_at: nil).first
   end
 end
