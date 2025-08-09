@@ -10,15 +10,17 @@ class BorrowerService
     raise "Missing name" if name.nil? || name.strip.empty?
     raise "Missing email" if email.nil? || email.strip.empty?
 
-    if BorrowerRepository.find_by_id_card_number(id_card_number)
-      raise "ID card number already exists"
-    end
+    BorrowerRepository.transaction do
+      if BorrowerRepository.find_by_id_card_number_with_lock(id_card_number)
+        raise "ID card number already exists"
+      end
 
-    if BorrowerRepository.find_by_email(email)
-      raise "Email already exists"
-    end
+      if BorrowerRepository.find_by_email_with_lock(email)
+        raise "Email already exists"
+      end
 
-    BorrowerRepository.create(id_card_number: id_card_number, name: name, email: email)
+      BorrowerRepository.create(id_card_number: id_card_number, name: name, email: email)
+    end
   end
 
   def self.get_borrower(id)
@@ -37,17 +39,19 @@ class BorrowerService
     raise "Missing name" if name.nil? || name.strip.empty?
     raise "Missing email" if email.nil? || email.strip.empty?
 
-    existing_by_card = BorrowerRepository.find_by_id_card_number(id_card_number)
-    if existing_by_card && existing_by_card.id != borrower.id
-      raise "ID card number already exists"
-    end
+    BorrowerRepository.transaction do
+      existing_by_card = BorrowerRepository.find_by_id_card_number_with_lock(id_card_number)
+      if existing_by_card && existing_by_card.id != borrower.id
+        raise "ID card number already exists"
+      end
 
-    existing_by_email = BorrowerRepository.find_by_email(email)
-    if existing_by_email && existing_by_email.id != borrower.id
-      raise "Email already exists"
-    end
+      existing_by_email = BorrowerRepository.find_by_email_with_lock(email)
+      if existing_by_email && existing_by_email.id != borrower.id
+        raise "Email already exists"
+      end
 
-    BorrowerRepository.update(borrower, id_card_number: id_card_number, name: name, email: email)
+      BorrowerRepository.update(borrower, id_card_number: id_card_number, name: name, email: email)
+    end
   end
 
   def self.soft_delete_borrower(id)

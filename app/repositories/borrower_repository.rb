@@ -24,12 +24,15 @@ class BorrowerRepository
     existing_borrower.destroy if existing_borrower
     existing_borrower
   end
-
-  def self.find_by_id_card_number(id_card_number)
-    Borrower.where(id_card_number: id_card_number).first
+  def self.find_by_id_card_number_with_lock(id_card_number)
+    Borrower.where(id_card_number: id_card_number).lock(true).first
   end
 
-  def self.find_by_email(email)
-    Borrower.where(email: email).first
+  def self.find_by_email_with_lock(email)
+    Borrower.where(email: email).lock(true).first
+  end
+
+  def self.transaction(&block)
+    Borrower.transaction(&block)
   end
 end
