@@ -7,6 +7,15 @@ require_relative './config/environment'
 Dir[File.join(__dir__, 'app/**/*.rb')].each { |file| require file }
 
 class App < Sinatra::Base
+  use Rack::Cors do
+    allow do
+      origins '*' # for development
+      resource '*',
+               headers: :any,
+               methods: [:get, :post, :put, :patch, :delete, :options, :head]
+    end
+  end
+
   before do
     content_type :json
   end

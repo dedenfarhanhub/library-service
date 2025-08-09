@@ -17,3 +17,5 @@ group :development do
   gem 'annotate'
 end
 gem "paranoia", "~> 3.0"
+
+gem "rack-cors", "~> 3.0"
